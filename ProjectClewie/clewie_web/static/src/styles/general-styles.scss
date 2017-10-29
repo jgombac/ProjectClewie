@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    clear: both;
+    font-family: $main-font;
+}
+
+.main-content {
+    margin: 0 auto;
+    padding: 14px;
+    margin-top: $topbar-height;
+    max-width: $horizontal-limit;
+}

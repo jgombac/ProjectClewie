@@ -1,0 +1,99 @@
+﻿.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: $white;
+    box-shadow: 0 1px 1px 0 rgba(25, 25, 25, 0.25);
+
+    .navbar-limit {
+        position: relative;
+        max-width: $horizontal-limit;
+        margin: 0 auto;
+        padding: 6px 14px;
+    }
+
+
+    a {
+        text-decoration: none;
+        line-height: 36px;
+        font-weight: bold;
+        color: $dark-blue;
+        margin: 0 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+
+    .navbar-toggle {
+        line-height: 36px;
+        font-weight: bold;
+        font-size: 32px;
+        float: right;
+        display: none;
+        color: $dark-blue;
+        cursor: pointer;
+    }
+
+    .nav-item,
+    .navbar-brand,
+    .collapse {
+        display: inline-block;
+    }
+
+    .collapse {
+        float: right;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .navbar-nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-item {
+        &:last-child {
+            a {
+                margin: 0;
+            }
+        }
+    }
+
+    .navbar-brand {
+        font-size: 28px;
+        margin: 0;
+    }
+
+    .nav-link {
+        font-size: 18px;
+
+        &:hover {
+            color: $blue;
+        }
+    }
+
+    @media screen and (max-width: $scr-sm) {
+        .nav-item {
+            display: block;
+        }
+
+        .collapse {
+            width: 100%;
+            text-align: center;
+            display: block;
+            max-height: 0;
+            -webkit-transition: max-height 0.15s ease-out;
+            transition: max-height 0.15s ease-out;
+
+            &.active {
+                max-height: 400px;
+            }
+        }
+
+        .navbar-toggle {
+            display: inline-block;
+        }
+    }
+}

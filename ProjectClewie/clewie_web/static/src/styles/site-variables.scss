@@ -1,0 +1,36 @@
+﻿/*COLORS*/
+$dark-blue: #2C3E50;
+$blue: #2980B9;
+$bright-blue: #3498DB;
+$white-blue: #9fd9ff;
+$light-grey: #C5C3C6;
+
+
+$grey: #A7A4A8;
+$dark-grey: #777577;
+
+$almost-white: #DCDCDD;
+$white: #ECF0F1;
+
+$black: #403D58;
+
+$bright-red: #E74C3C;
+$red: #FE5F55;
+
+$green: #3BBF67;
+
+$shadow-primary: rgba(25, 25, 25, 0.3);
+
+/*SCREEN WIDTHS*/
+$scr-xs: 380px;
+$scr-sm: 560px;
+$scr-md: 800px;
+$scr-lg: 1024px;
+$scr-xl: 1600px;
+
+$horizontal-limit: 1000px; 
+$topbar-height: 48px;
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+$main-font: 'Source Sans Pro', sans-serif;
