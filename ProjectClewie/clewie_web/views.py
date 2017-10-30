@@ -9,7 +9,9 @@ def index(request):
 
 @csrf_exempt
 def create(request):
-    if request.method == 'POST':
+    if request.method == "GET":
+        return render(request, "views/create.html")
+    if request.method == "POST":
         req = json.loads(request.body)
         try:
             return HttpResponse(json.dumps(req))

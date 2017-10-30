@@ -10,7 +10,7 @@ admin.autodiscover()
 
 urlpatterns = [
     # Examples:
-     url(r'^$', include('clewie_web.urls')),
+     url(r'^', include('clewie_web.urls')),
     # url(r'^ProjectClewie/', include('ProjectClewie.ProjectClewie.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

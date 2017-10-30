@@ -20,14 +20,13 @@ var debug = require('gulp-debug');
 const config = require("./gulpfile.config-clewie")();
 
 gulp.task("watch", function () {
-    gulp.watch(config.scriptssource, ["scripts"]);
+    gulp.watch(config.scriptssource, ["scripts", "clean"]);
     gulp.watch(config.styles.sourcefolder + "**/*.scss", ["styles"]);
 });
 
 gulp.task("scripts", function () {
     return merge(config.scripts.map(function (item) {
         return gulp.src(item.source)
-            .pipe(debug({dst: 'config.scriptsbuild'}))
             .pipe(sourcemaps.init())
             .pipe(concat(item.build))
             .pipe(sourcemaps.write())
