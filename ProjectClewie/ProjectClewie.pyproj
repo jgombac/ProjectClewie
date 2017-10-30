@@ -53,6 +53,13 @@
     <Content Include="clewie_web\static\build\scripts\main.js" />
     <Content Include="clewie_web\static\build\styles\style.css" />
     <Content Include="clewie_web\static\build\styles\style.css.map" />
+    <Content Include="clewie_web\static\src\styles\material-icons.scss" />
+    <Content Include="clewie_web\static\fonts\MaterialIcons-Regular.eot" />
+    <Content Include="clewie_web\static\fonts\MaterialIcons-Regular.ijmap" />
+    <Content Include="clewie_web\static\fonts\MaterialIcons-Regular.svg" />
+    <Content Include="clewie_web\static\fonts\MaterialIcons-Regular.ttf" />
+    <Content Include="clewie_web\static\fonts\MaterialIcons-Regular.woff" />
+    <Content Include="clewie_web\static\fonts\MaterialIcons-Regular.woff2" />
     <Content Include="clewie_web\static\src\scripts\libs\jquery-3.2.1.min.js" />
     <Content Include="clewie_web\static\src\scripts\main\init.js" />
     <Content Include="clewie_web\static\src\scripts\main\topbar.js" />
