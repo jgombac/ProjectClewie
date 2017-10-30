@@ -3,7 +3,8 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>ProjectClewie</Name>
     <RootNamespace>ProjectClewie</RootNamespace>
-    <InterpreterId>MSBuild|env_clewie|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -72,6 +73,9 @@
     <Content Include="clewie_web\templates\partials\topbar.html" />
     <Content Include="clewie_web\templates\scripts.html" />
     <Content Include="clewie_web\templates\styles.html" />
+    <Content Include="clewie_web\templates\views\create.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="clewie_web\templates\views\home.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
@@ -96,6 +100,15 @@
     <Folder Include="ProjectClewie\" />
   </ItemGroup>
   <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.6</Version>
+      <Description>env (Python 3.6 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
     <Interpreter Include="env_clewie\">
       <Id>env_clewie</Id>
       <Version>3.6</Version>
