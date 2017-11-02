@@ -1,0 +1,29 @@
+{% block content %}
+<form id="file-form" class="form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="asdfasdfa">
+    {{form.file}}
+    <p>
+        <input type="submit" data-gom-form="submit" value="Upload" />
+    </p>
+</form>
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function (){
+        $("#file-form").on("submit", function (e) {
+            e.preventDefault();
+            form = new FormData($(this)[0])
+            gom.clew.fileUpload(form)
+            .done(function(response) {
+                console.log(response);
+            })
+            .fail(function (error) {
+                console.log(error);
+            });
+        });
+    });
+</script>
+
+{% endblock javascript %}

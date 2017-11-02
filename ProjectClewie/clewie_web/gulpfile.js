@@ -20,7 +20,9 @@ var debug = require('gulp-debug');
 const config = require("./gulpfile.config-clewie")();
 
 gulp.task("watch", function () {
-    gulp.watch(config.scriptssource, ["scripts", "clean"]);
+    gulp.start("scripts");
+    gulp.start("styles");
+    gulp.watch(config.scriptssource, ["scripts"]);
     gulp.watch(config.styles.sourcefolder + "**/*.scss", ["styles"]);
 });
 

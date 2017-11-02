@@ -25,6 +25,7 @@
                 "build": "libs.js",
                 "source": [
                     path_source_scripts + "libs/jquery-3.2.1.min.js",
+                    path_source_scripts + "libs/slick.min.js",
                 ]
             },
             {
@@ -32,6 +33,7 @@
                 "source": [
                     path_source_scripts + "main/topbar.js",
                     path_source_scripts + "main/init.js",
+                    path_source_scripts + "main/clew.js",
                 ]
             },
 

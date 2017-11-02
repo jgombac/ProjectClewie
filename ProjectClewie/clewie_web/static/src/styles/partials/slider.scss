@@ -1,0 +1,54 @@
+.action-slider{
+    background: $white;
+    padding: 10px 20px;
+    box-shadow: 1px 1px 6px $shadow-primary;
+    .action-slide {
+        padding: 0 10px;
+    }
+}
+
+.slider-controller {
+    list-style: none;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    
+    .slider-item {
+        position: relative;
+        background: $light-blue;
+        color: $white;
+        line-height: 28px;
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0;
+        padding: 12px;
+
+        &:hover {
+            z-index: 3;
+            font-size: 20px;
+            box-shadow: 0px 0px 4px $shadow-primary;
+        }
+
+        &.active {
+            z-index: 2;
+            font-size: 24px;
+            box-shadow: 1px 1px 6px $shadow-primary;
+        }
+        
+        span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            padding: 12px 20px;
+            background: $lightest-blue;
+        }
+    }
+}
+
+
+.control-container {
+    padding: 0;
+}

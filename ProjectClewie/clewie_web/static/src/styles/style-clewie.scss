@@ -2,8 +2,13 @@
 @import "site-variables";
 
 @import "material-icons";
+@import "slick.scss";
 @import "general-styles";
+@import "flex-grid";
 
 
 /*PARTIALS*/
 @import "partials/topbar";
+@import "partials/tile";
+@import "partials/slider";
+@import "partials/form"

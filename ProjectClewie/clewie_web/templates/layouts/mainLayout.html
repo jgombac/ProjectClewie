@@ -11,8 +11,10 @@
     {% include "partials/topbar.html" %}
     <div class="main-content">
         {% block content %}
-        {% endblock %}
+        {% endblock content%}
     </div>
     {% include "scripts.html" %}
-</body>
+    {% block javascript %}
+    {% endblock javascript %}
+</bod
 </html>

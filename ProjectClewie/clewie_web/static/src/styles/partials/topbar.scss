@@ -3,7 +3,7 @@
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: $white;
+    background: $dark-blue;
     box-shadow: 0 1px 1px 0 rgba(25, 25, 25, 0.25);
 
     .navbar-limit {
@@ -17,7 +17,7 @@
         text-decoration: none;
         line-height: 36px;
         font-weight: bold;
-        color: $dark-blue;
+        color: $white;
         margin: 0 20px;
         text-transform: uppercase;
         letter-spacing: 2px;
@@ -30,7 +30,7 @@
         font-size: 32px;
         float: right;
         display: none;
-        color: $dark-blue;
+        color: $white;
         cursor: pointer;
     }
 

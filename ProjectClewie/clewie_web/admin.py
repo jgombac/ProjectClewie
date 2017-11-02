@@ -1,3 +1,4 @@
 from django.contrib import admin
+from clewie_web.models import EstimatorWeb
 
-# Register your models here.
+admin.site.register(EstimatorWeb)

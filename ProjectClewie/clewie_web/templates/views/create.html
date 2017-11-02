@@ -1,14 +1,25 @@
 {% extends "layouts/mainLayout.html" %}
 
 {% block content %}
-<div class="model-container">
-
-    <div class="model-tile-sizer"></div>
-</div>
-
-
+ <div class="row center-xs"> 
+    {% for est in estimators %}
+        <div class="tile-wrapper col-lg-3 col-md-4 col-sm-6 col-xs-12">
+           <a class="tile-link" href="{{est.url}}"> 
+                <div class="tile-container">
+                    <div class="tile-header">
+                        {{est.name}}
+                    </div>
+                    <div class="tile-content">
+                        {{est.image}}
+                        <br />
+                        {{est.more_link}}
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+ </div> 
 {% endblock %}
-
     <!--<script>
         $(document).ready(function () {
 
