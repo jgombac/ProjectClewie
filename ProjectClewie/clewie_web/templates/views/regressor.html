@@ -1,133 +1,78 @@
 {% extends "layouts/mainLayout.html" %} {% block content %}
-<div class="row">
-    <div class="control-container col-xs-3 col-md-3 col-sm-3 col-xs-12">
-        <ul class="slider-controller">
-            <li class="slider-item" value="0">
-                <span>1.</span>
-                Initialize
-            </li>
-            <li class="slider-item" value="1">
-                <span>2.</span>
-                Train
-            </li>
-            {% comment %} <li class="slider-item" value="2">Evaluate</li> {% endcomment %}
-            <li class="slider-item" value="2">
-                <span>3.</span>
-                Predict
-            </li>
-        </ul>
-    </div>
-    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-        <div class="action-slider slick-slider">
-            <div class="action-slide slick-slide" data-gom-action="init">
-                <form action="{{request.path}}" id="init" class="form" method="POST">
-                    <div class="form-group">
-                        <label for="hidden-units">Hidden units</label>
-                        <input id="hidden-units" type="text" name="hidden_units">
-                    </div>
-                    <div class="form-group">
-                        <label for="feature-columns">Feature columns</label>
-                        <input id="feature-columns" type="text" name="feature_columns">
-                    </div>
+<div id="regressor-editor">
+    <div class="row">
+        <div class="control-container col-xs-3 col-md-3 col-sm-3 col-xs-12">
+            <ul class="slider-controller">
+                <li class="slider-item" value="0">
+                    <span>1.</span>
+                    Initialize
+                </li>
+                <li class="slider-item" value="1">
+                    <span>2.</span>
+                    Train
+                </li>
+                {% comment %}
+                <li class="slider-item" value="2">Evaluate</li> {% endcomment %}
+                <li class="slider-item" value="2">
+                    <span>3.</span>
+                    Predict
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <div class="action-slider slick-slider">
+                <div class="action-slide slick-slide" data-gom-action="init">
+                    <form action="{{request.path}}" id="init" class="form" method="POST">
+                        <div class="form-group">
+                            <label for="hidden-units">Hidden units</label>
+                            <input id="hidden-units" type="text" name="hidden_units">
+                        </div>
+                        <div class="form-group">
+                            <label for="feature-columns">Feature columns</label>
+                            <input id="feature-columns" type="text" name="feature_columns">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="label-dimension">Label dimension</label>
-                        <input id="label-dimension" type="text" name="label_dimension">
-                    </div>
-                    <p>
-                        <input type="submit" data-gom-form="submit" value="Initialize">
-                    </p>
-                </form>
-            </div>
-            <div class="action-slide slick-slide" data-gom-action="train">
-                <form id="file-form" class="form" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{form.file}}
-                    <p>
-                        <input type="submit" data-gom-form="submit" value="Upload" />
-                    </p>
-                </form>
-            </div>
+                        <div class="form-group">
+                            <label for="label-dimension">Label dimension</label>
+                            <input id="label-dimension" type="text" name="label_dimension">
+                        </div>
+                        <p>
+                            <input type="submit" data-gom-form="submit" value="Initialize">
+                        </p>
+                    </form>
+                </div>
+                <div class="action-slide slick-slide" data-gom-action="train">
+                    <form id="file-form" class="form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %} {{form.file}}
+                        <p>
+                            <input type="submit" data-gom-form="submit" value="Upload" />
+                        </p>
+                    </form>
+                </div>
 
-            {% comment %} <div class="action-slide slick-slide" data-gom-action="evaluate">
-                EVALUATE
-            </div> {% endcomment %}
+                {% comment %}
+                <div class="action-slide slick-slide" data-gom-action="evaluate">
+                    EVALUATE
+                </div> {% endcomment %}
 
-            <div class="action-slide slick-slide" data-gom-action="predict">
-                <form action="{{request.path}}" id="predict" class="form" method="POST">
-                    <div class="form-group">
-                        <label for="predict-input">Input</label>
-                        <input id="predict-input" type="text" name="input">
-                    </div>
+                <div class="action-slide slick-slide" data-gom-action="predict">
+                    <form action="{{request.path}}" id="predict" class="form" method="POST">
+                        <div class="form-group">
+                            <label for="predict-input">Input</label>
+                            <input id="predict-input" type="text" name="input">
+                        </div>
 
-                    <input type="submit" data-gom-forn="submit" value="Predict">
-                </form>
+                        <input type="submit" data-gom-forn="submit" value="Predict">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock content %} 
-{% block javascript %}
+{% endblock content %} {% block javascript %}
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".slick-slider").slick({
-            speed: 200,
-            arrows: false,
-            adaptiveHeight: true,
-        });
-        
-        resetSlideHeight();
-        $(window).resize(function() {
-            resetSlideHeight();
-        })
-        $(".slider-item[value='0']").addClass("active");
-        $(".slider-item").click(function () {
-            $(".action-slider").slick("slickGoTo", $(this).val());
-            $(".slider-item").removeClass("active");
-            $(this).addClass("active");
-        });
+        estimatorManager.init($("#regressor-editor"));
 
-        $("#init, #predict").on("submit", function (e) {
-            var data = {};
-            $(this).find(':input').each(function(){
-                data[$(this).attr("name")] = $(this).val();
-            });
-            gom.clew.create("{{request.path}}", data)
-            .done(function (response) {
-                console.log(response);
-            })
-            .fail(function () {
-                console.log("fail create");
-            });
-            return false;
-        });
-
-         $("#file-form").on("submit", function (e) {
-            e.preventDefault();
-            form = new FormData($(this)[0])
-            gom.clew.fileUpload(form)
-            .done(function(response) {
-                console.log(response);
-            })
-            .fail(function (error) {
-                console.log(error);
-            });
-        });
     });
-
-    var resetSlideHeight = function (){
-        var maxHeight = -1;
-        $('.slick-slide').each(function () {
-            if ($(this).height() > maxHeight) {
-                maxHeight = $(this).height();
-            }
-        });
-        $('.slick-slide').each(function () {
-            if ($(this).height() < maxHeight) {
-                $(this).css('margin', Math.ceil((maxHeight - $(this).height()) / 2) + 'px 0');
-            }
-        });
-    }
-
-</script>
-{% endblock javascript %}
+</script> {% endblock javascript %}

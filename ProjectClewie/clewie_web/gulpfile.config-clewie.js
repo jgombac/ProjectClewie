@@ -33,6 +33,7 @@
                 "source": [
                     path_source_scripts + "main/topbar.js",
                     path_source_scripts + "main/init.js",
+                    path_source_scripts + "main/estimator-manager.js",
                     path_source_scripts + "main/clew.js",
                 ]
             },
