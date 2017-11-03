@@ -5,7 +5,7 @@ import json
 from django.views.generic import ListView
 from clewie_web.models import EstimatorWeb as ests
 from .forms import FileUploadForm
-from clewie_web.filehelper import initialUpload
+from clewie_web.filehelper import FileHelper
 
 def index(request):
     return render(request, "views/home.html")
@@ -13,14 +13,20 @@ def index(request):
 @csrf_exempt
 def fileUpload(request):
     if request.method == 'POST':
-        form = FileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            f = request.FILES['file']
-            read = initialUpload(f)
+        options = dict()
+        options["delimiter"] = request.POST.get("delimiter", ",")
+        options["float_precision"] = request.POST.get("float_precision", None)
+        options["usecols"] = request.POST.get("usecols", None)
+        f = request.FILES['file']
+        return HttpResponse(json.dumps(options) + "  |  " + FileHelper(f).readPartial())
+        # form = FileUploadForm(request.POST, request.FILES)
+        # if form.is_valid():
+        #     f = request.FILES['file']
+        #     read = FileHelper(f).readPartial()
+        #     options = json.loads(request.body)
             
-            return HttpResponse(read)
-        else:
-            return HttpResponse("form not valid")
+        # else:
+        #     return HttpResponse("form not valid")
     else:
         form = FileUploadForm()
     return render(request, 'partials/fileUpload.html', {'form': form})

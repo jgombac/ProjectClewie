@@ -1,24 +1,28 @@
 import pandas as pd
 
-object FileHelper(object):
+class FileHelper(object):
     file = None;
 
     delimiter = ","
+    float_precision = None
     nrows = 5
-    hasHeader = True
-    columns = []
+    usecols = None
+
     features = []
     labels = []
 
     def __init__(self, f):
         self.file = f
-        self.initialUpload()
 
     def updateOptions(self, options):
-        return None
+        self.delmiter = options.delimiter
+        self.float_precision = options.float_precision
+        self.usecols = options.usecols
 
-    def readWithOptions(self, options):
-        return None
+    def readPartial(self):
+        return str(pd.read_csv(self.file, nrows=5, usecols=self.usecols, delimiter=self.delimiter, float_precision=self.float_precision))
 
-    def initialUpload(self):
-        return str(pd.read_csv(self.file, nrows=5, delimiter=";"))
+    
+    def readAll(self):
+        return str(pd.read_csv(self.file, usecols=self.usecols, delimiter=self.delimiter, float_precision=self.float_precision))
+        
