@@ -14,15 +14,16 @@ class FileHelper(object):
     def __init__(self, f):
         self.file = f
 
-    def updateOptions(self, options):
+
+    def update_options(self, options):
         self.delmiter = options.delimiter
         self.float_precision = options.float_precision
         self.usecols = options.usecols
 
-    def readPartial(self):
+    def read_partial(self):
         return str(pd.read_csv(self.file, nrows=5, usecols=self.usecols, delimiter=self.delimiter, float_precision=self.float_precision))
 
     
-    def readAll(self):
+    def read_all(self):
         return str(pd.read_csv(self.file, usecols=self.usecols, delimiter=self.delimiter, float_precision=self.float_precision))
         

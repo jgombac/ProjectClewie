@@ -18,15 +18,7 @@ def fileUpload(request):
         options["float_precision"] = request.POST.get("float_precision", None)
         options["usecols"] = request.POST.get("usecols", None)
         f = request.FILES['file']
-        return HttpResponse(json.dumps(options) + "  |  " + FileHelper(f).readPartial())
-        # form = FileUploadForm(request.POST, request.FILES)
-        # if form.is_valid():
-        #     f = request.FILES['file']
-        #     read = FileHelper(f).readPartial()
-        #     options = json.loads(request.body)
-            
-        # else:
-        #     return HttpResponse("form not valid")
+        return HttpResponse(json.dumps(options) + "  |  " + FileHelper(f).read_partial())
     else:
         form = FileUploadForm()
     return render(request, 'partials/fileUpload.html', {'form': form})
