@@ -15,13 +15,13 @@ gom.clew = {
 
     fileUpload: function (data) {
         return $.ajax({
+            dataType: "json",
             type: "POST",
             url: "/fileupload/",
             data: data,
             cache: false,
             contentType: false,
-            processData: false,
-            dataType: "json",
+            processData: false,   
             async: true,
             cache: false,
         });
