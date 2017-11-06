@@ -22,17 +22,22 @@ var estimatorManager = (function () {
             return false;
         });
 
-        $(context).on("submit", "#file-form", function (e) {
-            e.preventDefault();
-            form = new FormData($(this)[0])
-            gom.clew.fileUpload(form)
-                .done(function (response) {
-                    console.log(response);
-                })
-                .fail(function (error) {
-                    console.log(error);
-                });
-        });
+
+        var fileManager = new FileManager($("[data-gom-action='train']"));
+        // $(context).on("submit", "#file-form", function (e) {
+        //     e.preventDefault();
+        //     form = new FormData($(this)[0])
+        //     gom.clew.fileUpload(form)
+        //         .done(function (response) {
+        //             $(".js-fileInspector").html(response);
+        //             var mng = new FileManager($(".js-fileInspector"));
+        //             mng.showOptions();
+        //             $(window).trigger('resize');
+        //         })
+        //         .fail(function (error) {
+        //             console.log("error", error);
+        //         });
+        // });
     }
 
     var initSlider = function (context) {
@@ -40,12 +45,13 @@ var estimatorManager = (function () {
             speed: 200,
             arrows: false,
             adaptiveHeight: true,
+            draggable: false,
+            infinite: false,
         });
 
-        resetSlideHeight(context);
-        $(window).resize(function () {
-            resetSlideHeight(context);
-        })
+        //test
+        $(".action-slider", $("#regressor-editor")).slick("slickGoTo", 1);
+
         $(".slider-item[value='0']", context).addClass("active");
         $(".slider-item", context).click(function () {
             $(".action-slider", context).slick("slickGoTo", $(this).val());
@@ -54,19 +60,6 @@ var estimatorManager = (function () {
         });
     }
 
-    var resetSlideHeight = function (context) {
-        var maxHeight = -1;
-        $('.slick-slide', context).each(function () {
-            if ($(this).height() > maxHeight) {
-                maxHeight = $(this).height();
-            }
-        });
-        $('.slick-slide', context).each(function () {
-            if ($(this).height() < maxHeight) {
-                $(this).css('margin', Math.ceil((maxHeight - $(this).height()) / 2) + 'px 0');
-            }
-        });
-    }
 
     return {
 

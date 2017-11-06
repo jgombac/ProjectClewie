@@ -10,26 +10,26 @@ from clewie_web.filehelper import FileHelper
 def index(request):
     return render(request, "views/home.html")
 
-@csrf_exempt
-def fileUpload(request):
-    if request.method == 'POST':
-        options = dict()
-        options["delimiter"] = request.POST.get("delimiter", ",")
-        options["float_precision"] = request.POST.get("float_precision", None)
-        options["usecols"] = request.POST.get("usecols", None)
-        f = request.FILES['file']
-        return HttpResponse(json.dumps(options) + "  |  " + FileHelper(f).readPartial())
-        # form = FileUploadForm(request.POST, request.FILES)
-        # if form.is_valid():
-        #     f = request.FILES['file']
-        #     read = FileHelper(f).readPartial()
-        #     options = json.loads(request.body)
+# @csrf_exempt
+# def fileUpload(request):
+#     if request.method == 'POST':
+#         options = dict()
+#         options["delimiter"] = request.POST.get("delimiter", ",")
+#         options["float_precision"] = request.POST.get("float_precision", None)
+#         options["usecols"] = request.POST.get("usecols", None)
+#         f = request.FILES['file']
+#         return HttpResponse(json.dumps(options) + "  |  " + FileHelper(f).readPartial())
+#         # form = FileUploadForm(request.POST, request.FILES)
+#         # if form.is_valid():
+#         #     f = request.FILES['file']
+#         #     read = FileHelper(f).readPartial()
+#         #     options = json.loads(request.body)
             
-        # else:
-        #     return HttpResponse("form not valid")
-    else:
-        form = FileUploadForm()
-    return render(request, 'partials/fileUpload.html', {'form': form})
+#         # else:
+#         #     return HttpResponse("form not valid")
+#     else:
+#         form = FileUploadForm()
+#     return render(request, 'partials/fileUpload.html', {'form': form})
 
 @csrf_exempt
 def create(request):

@@ -42,12 +42,12 @@
                     </form>
                 </div>
                 <div class="action-slide slick-slide" data-gom-action="train">
-                    <form id="file-form" class="form" method="POST" enctype="multipart/form-data">
+                    <form class="form file-form" method="POST" enctype="multipart/form-data">
                         {% csrf_token %} 
                         {{form.file}}
                         <div class="form-group">
                             <label for="delimiter">Delimiter</label>
-                            <input id="delimiter" type="text" maxlength="1" name="delimiter">
+                            <input id="delimiter" type="text" maxlength="1" name="delimiter" value=";">
                         </div>
                         <div class="form-group">
                             <label for="float-precision">Float precision</label>
@@ -65,6 +65,7 @@
                             <input type="submit" data-gom-form="submit" value="Upload" />
                         </p>
                     </form>
+                    <div class="js-fileInspector table-inspector"></div>
                 </div>
 
                 {% comment %}

@@ -21,7 +21,7 @@ gom.clew = {
             cache: false,
             contentType: false,
             processData: false,
-            dataType: "json",
+            dataType: "html",
             async: true,
             cache: false,
         });

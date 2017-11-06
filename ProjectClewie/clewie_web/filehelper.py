@@ -3,11 +3,12 @@ import pandas as pd
 class FileHelper(object):
     file = None;
 
-    delimiter = ","
+    delimiter = ','
     float_precision = None
     nrows = 5
     usecols = None
 
+    types = []
     features = []
     labels = []
 
@@ -15,12 +16,26 @@ class FileHelper(object):
         self.file = f
 
     def updateOptions(self, options):
-        self.delmiter = options.delimiter
-        self.float_precision = options.float_precision
-        self.usecols = options.usecols
+        self.delimiter = options["delimiter"]
+        float_precision = options["float_precision"]
+        if (options["roles"] and options["types"]):
+            self.types = options["types"]
+            self.features = []
+            self.labels = []
+            for i, v in enumerate(options["roles"]):
+                print(i, v)
+                if v == "feature":
+                    self.features.append(i)
+                elif v == "label":
+                    self.labels.append(i)
+                else:
+                    pass
+            print(self.types, self.features, self.labels)
+
+
 
     def readPartial(self):
-        return str(pd.read_csv(self.file, nrows=5, usecols=self.usecols, delimiter=self.delimiter, float_precision=self.float_precision))
+        return pd.read_csv(self.file, nrows=1, sep=self.delimiter)
 
     
     def readAll(self):
