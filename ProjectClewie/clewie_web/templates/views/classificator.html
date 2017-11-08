@@ -1,18 +1,27 @@
+{% extends "layouts/mainLayout.html" %}
 {% block content %}
+<button onClick="openModal()">
+    OPEN MODAL
+</button>
 
-<div data-gom-action="init">
-INIT
-</div>
-
-<div data-gom-action="train">
-TRAIN
-</div>
-
-<div data-gom-action="evaluate">
-EVALUATE
-</div>
-
-<div data-gom-action="predict">
-PREDICT
-</div>
 {% endblock content %}
+{% block javascript %}
+<script>    
+    var modal = null;
+    $(document).ready(function () {
+        
+        modal = new tingle.modal({
+            closeMethods: ["overlay", "button", "escape"]
+        });
+
+        modal.setContent("<h1>HELLO</h1>");
+        
+
+       
+
+    });
+    function openModal(){
+        modal.open();
+    }
+</script>
+{% endblock javascript %}

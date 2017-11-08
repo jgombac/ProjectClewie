@@ -13,8 +13,11 @@
         {% block content %}
         {% endblock content%}
     </div>
+    <script>
+    window.modals = "{{modals|safe}}";
+    </script>
     {% include "scripts.html" %}
     {% block javascript %}
     {% endblock javascript %}
-</bod
+</body>
 </html>

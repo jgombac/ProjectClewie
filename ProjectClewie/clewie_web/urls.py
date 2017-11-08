@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from . import views, api
+from . import views, api, jstemplates
 from clewie_web.models import EstimatorWeb
 
 estimators = "|".join([est["name"].lower() for est in EstimatorWeb.objects.values()])
@@ -10,5 +10,7 @@ urlpatterns = [
     url(r'^create/' + estimators + '$', views.createEstimator, name="createEstimator"),
     url(r'^manage/' + estimators + '$', views.manageEstimator, name="manageEstimator"),
 
-    url(r'^fileupload/$', api.fileUpload, name='fileUpload')
+    url(r'^fileupload/$', api.fileUpload, name='fileUpload'),
+
+    # url(r'^modals/$', jstemplates.get_modals, name="get_modals")
 ]

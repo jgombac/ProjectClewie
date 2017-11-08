@@ -1,14 +1,21 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseServerError
+from django.template import RequestContext
 import json
 from django.views.generic import ListView
 from clewie_web.models import EstimatorWeb as ests
 from .forms import FileUploadForm
 from clewie_web.filehelper import FileHelper
+from . import jstemplates
+
+def testFunc():
+    return "asd"
+
+c = {"modals": jstemplates.get_modals}
 
 def index(request):
-    return render(request, "views/home.html")
+    return render(request, "views/home.html", c)
 
 
 @csrf_exempt

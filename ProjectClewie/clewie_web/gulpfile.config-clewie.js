@@ -26,6 +26,7 @@
                 "source": [
                     path_source_scripts + "libs/jquery-3.2.1.min.js",
                     path_source_scripts + "libs/slick.min.js",
+                    path_source_scripts + "libs/tingle.js",
                 ]
             },
             {
