@@ -34,45 +34,44 @@ function FileManager(context){
         });
     };
 
-    this.showOptions = function (data) {
-        _this.showTypes(data);
-        _this.showRoles(data);
+    this.showOptions = function (data, container) {
+        _this.showTypes(data, container);
+        _this.showRoles(data, container);
     };  
 
-    this.showTypes = function (data) {
-        $("tbody", context).append($("<tr class='types'>"))
+    this.showTypes = function (data, container) {
+        $(container + " tbody", context).append($("<tr class='types'>"));
 
-        $("tbody tr").eq(-2).find("td").each(function () {
-            $(".types").append("<td class='type-container'>");
+        $(container + " tbody tr").eq(-2).find("td").each(function () {
+            $(container + " .types").append("<td class='type-container'>");
         });
 
-        $(".type-container").append($("<select data-gom-select='type' dir='rtl'>"));
+        $(container + " .type-container").append($("<select data-gom-select='type' dir='rtl'>"));
         _this.typeOptions.forEach(function (v) {
-            $("[data-gom-select='type']").each(function (i, val) {  
+            $(container + " [data-gom-select='type']").each(function (i, val) {  
                 if(data.types != undefined && data.types[i] == v.toLowerCase())           
                     $(this).append($("<option>").text(v).attr("value", v.toLowerCase()).attr("selected", true));   
                 else
-                    $(this).append($("<option>").text(v).attr("value", v.toLowerCase()));   
-                
+                    $(this).append($("<option>").text(v).attr("value", v.toLowerCase()));                  
             });            
         });     
     };
 
-    this.showRoles = function (data) {
-        $("tbody", context).append($("<tr class='roles'>"))
+    this.showRoles = function (data, container) {
+        $(container + " tbody", context).append($("<tr class='roles'>"));
         
-        $("tbody tr").eq(-3).find("td").each(function () {
-            $(".roles").append("<td class='role-container'>");
+        $(container + " tbody tr").eq(-3).find("td").each(function () {
+            $(container + " .roles").append("<td class='role-container'>");
         });
 
-        $(".role-container").append($("<select data-gom-select='role' dir='rtl'>"));
+        $(container + " .role-container").append($("<select data-gom-select='role' dir='rtl'>"));
         _this.roleOptions.forEach(function (v) {
-            $("[data-gom-select='role']").each(function (i, val) {             
+            $(container + " [data-gom-select='role']").each(function (i, val) {             
                 if(data.roles != undefined && data.roles[i] == v.toLowerCase())           
                      $(this).append($("<option>").text(v).attr("value", v.toLowerCase()).attr("selected", true));   
                 else
                     $(this).append($("<option>").text(v).attr("value", v.toLowerCase()));   
-        });            
+            });            
         });     
     };
 
@@ -90,16 +89,23 @@ function FileManager(context){
 
         $(context).on("submit", ".file-form", function (e) {
             e.preventDefault();
-            console.log($("[clicked='true']", context).attr("data-gom-file"));
             var form = new FormData($(this)[0]);
 
+            form.append("action", $("[clicked='true']", context).attr("data-gom-file"));
             form.append("roles", _this.roles);
             form.append("types", _this.types);
             
             gom.clew.fileUpload(form)
             .done(function (response) {
-                $(".js-fileParams", context).html(response.table);
-                _this.showOptions(response);
+                if (response.action == "upload"){
+                    $(".js-fileParams", context).html(response.table);
+                    _this.showOptions(response, ".js-fileParams");
+                }
+                else if (response.action == "process"){
+                    $(".js-fileProcessed", context).html(response.table);
+                    _this.showOptions(response, ".js-fileProcessed");
+                }
+                
                 $(window).trigger('resize');
             })
             .fail(function (error) {

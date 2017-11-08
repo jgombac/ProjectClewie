@@ -33,6 +33,21 @@ class FileHelper(object):
                     pass
 
 
+    def onUpload(self):
+        return  pd.read_csv(self.file, nrows=1, sep=self.delimiter)
+
+    def onProcess(self):
+        data = pd.read_csv(self.file, sep=self.delimiter)
+        for type, column in zip(self.types, data):
+            if type == "nominal":                
+                cats = pd.get_dummies(data[column])
+                data.drop(column, axis=1, inplace=True)
+                data = pd.concat([data, cats], axis=1, join='inner')
+            else: 
+                data[column] = data[column].astype(np.float64)
+        return data
+        
+
 
     def readPartial(self):
         return pd.read_csv(self.file, nrows=1, sep=self.delimiter)
@@ -49,15 +64,16 @@ class FileHelper(object):
 
     
     def dataParams(self, data):
-        if len(self.types) == 0 or len(self.features + self.labels) == 0:
-            colcount = len(data.iloc[0])
-            return ["numeric" for i in range(colcount)], ["feature" for i in range(colcount-1)] + ["label"]
-        roles = [i for i in self.features + self.labels]
-        for i in self.features:
-            roles[i] = "feature"
-        for i in self.labels:
-            roles[i] = "label"
-        return self.types, roles
+        return [str(type).replace("object", "nominal").replace("uint8", "nominal") for type in data.dtypes]
+        # if len(self.types) == 0 or len(self.features + self.labels) == 0:
+        #     colcount = len(data.iloc[0])
+        #     return ["numeric" for i in range(colcount)], ["feature" for i in range(colcount-1)] + ["label"]
+        # roles = [i for i in self.features + self.labels]
+        # for i in self.features:
+        #     roles[i] = "feature"
+        # for i in self.labels:
+        #     roles[i] = "label"
+        # return self.types, roles
 
 
     def readAll(self):
@@ -65,7 +81,9 @@ class FileHelper(object):
         data = pd.read_csv(self.file, sep=self.delimiter)
         for type, column in zip(_types, data):
             if type == "category":
+                
                 cats = pd.get_dummies(data[column])
+                print(cats)
                 data.drop(column, axis=1, inplace=True)
                 data = pd.concat([data, cats], axis=1, join='inner')
             else: 

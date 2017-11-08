@@ -18,19 +18,33 @@ def fileUpload(request):
         fh = FileHelper(f)
         fh.updateOptions(options)
 
+        action = request.POST.get("action", "upload")
+
         data = None
-        print(options["roles"], options["types"])
-        # if data parameters are set we can try to read the whole file
-        if len(options["roles"]) > 1 and len(options["types"]) > 1:
-            data = fh.readAll()
-            print(data)
-            print(data.dtypes)
-        else:
-            data = fh.readPartial()
-        # data = fh.readPartial()
-        types, roles = fh.dataParams(data)
-        table = data.to_html(index=False, classes="clr")
-        return JsonResponse({"table": table, "types": types, "roles": roles })
+
+        if action == "upload":
+            data = fh.onUpload()
+        elif action == "process":
+            data = fh.onProcess()
+
+
+        types = fh.dataParams(data)
+        table = data.to_html(index=False, max_rows=1, classes="clr")
+        
+        return JsonResponse({"table": table, "types": types, "roles": "roles", "action": action })
+
+        # print(options["roles"], options["types"])
+        # # if data parameters are set we can try to read the whole file
+        # if len(options["roles"]) > 1 and len(options["types"]) > 1:
+        #     data = fh.readAll()
+        #     print(data)
+        #     print(data.dtypes)
+        # else:
+        #     data = fh.readPartial()
+        # # data = fh.readPartial()
+        # types = fh.dataParams(data)
+        # table = data.to_html(index=False, classes="clr")
+        # return JsonResponse({"table": table, "types": types, "roles": "roles" })
     else:
         return HttpResponseServerError()
 
