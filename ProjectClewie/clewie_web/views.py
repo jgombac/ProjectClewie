@@ -9,13 +9,11 @@ from .forms import FileUploadForm
 from clewie_web.filehelper import FileHelper
 from . import jstemplates
 
-def testFunc():
-    return "asd"
 
-c = {"modals": jstemplates.get_modals}
+# c = {"modals": jstemplates.get_modals}
 
 def index(request):
-    return render(request, "views/home.html", c)
+    return render(request, "views/home.html")
 
 
 @csrf_exempt

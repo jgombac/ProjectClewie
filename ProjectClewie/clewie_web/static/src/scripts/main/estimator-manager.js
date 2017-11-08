@@ -23,7 +23,7 @@ var estimatorManager = (function () {
         });
 
 
-        var fileManager = new FileManager($("[data-gom-action='train']"));
+        //var fileManager = new FileManager($("[data-gom-action='train']"));
         // $(context).on("submit", "#file-form", function (e) {
         //     e.preventDefault();
         //     form = new FormData($(this)[0])

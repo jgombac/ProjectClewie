@@ -1,7 +1,7 @@
 {% extends "layouts/mainLayout.html" %}
 {% block content %}
-<button onClick="openModal()">
-    OPEN MODAL
+<button class="icon-btn" onClick="openModal()">
+        <i class="material-icons">&#xE24D;</i>
 </button>
 
 {% endblock content %}
@@ -14,10 +14,9 @@
             closeMethods: ["overlay", "button", "escape"]
         });
 
-        modal.setContent("<h1>HELLO</h1>");
-        
-
-       
+        modal.setContent(window.modals.fileManager);
+            
+        var fileManager = new FileManager($(".file-mng"));
 
     });
     function openModal(){

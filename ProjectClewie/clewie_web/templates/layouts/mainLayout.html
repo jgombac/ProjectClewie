@@ -13,8 +13,9 @@
         {% block content %}
         {% endblock content%}
     </div>
-    <script>
-    window.modals = "{{modals|safe}}";
+    <script type="text/javascript">
+        var templates = '{{ modals|safe }}';
+        window.modals = JSON.parse(templates);
     </script>
     {% include "scripts.html" %}
     {% block javascript %}

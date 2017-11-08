@@ -18,6 +18,11 @@ function FileManager(context){
         
     };
 
+    this.upload = function () {
+
+    };
+
+
     this.collectOptions = function () {
         _this.types = [];
         _this.roles = [];
@@ -77,8 +82,15 @@ function FileManager(context){
             _this.collectOptions();
         });
 
+        $(context).on("click", "[data-gom-file]", function (){
+            $("[data-gom-file]", context).removeAttr("clicked");
+            $(this).attr("clicked", "true");
+
+        });
+
         $(context).on("submit", ".file-form", function (e) {
             e.preventDefault();
+            console.log($("[clicked='true']", context).attr("data-gom-file"));
             var form = new FormData($(this)[0]);
 
             form.append("roles", _this.roles);
@@ -86,7 +98,7 @@ function FileManager(context){
             
             gom.clew.fileUpload(form)
             .done(function (response) {
-                $(".js-fileInspector", context).html(response.table);
+                $(".js-fileParams", context).html(response.table);
                 _this.showOptions(response);
                 $(window).trigger('resize');
             })
