@@ -1,4 +1,6 @@
-{% extends "layouts/mainLayout.html" %} {% block content %}
+{% extends "layouts/mainLayout.html" %}
+{% load filter_extras %}
+{% block content %}
 <div id="regressor-editor">
     <div class="row">
         <div class="control-container col-xs-3 col-md-3 col-sm-3 col-xs-12">
@@ -21,7 +23,7 @@
         </div>
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
             <div class="action-slider slick-slider">
-                <div class="action-slide slick-slide" data-gom-action="init">
+                <div class="action-slide slick-slide js-ActionInit" data-gom-action="init">
                     <form action="{{request.path}}" id="init" class="form" method="POST">
                         <div class="form-group">
                             <label for="hidden-units">Hidden units</label>
@@ -42,30 +44,25 @@
                     </form>
                 </div>
                 <div class="action-slide slick-slide" data-gom-action="train">
-                    <form class="form file-form" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %} 
-                        {{form.file}}
+                    <form action="{{request.path}}" method="POST">
+                        <button class="icon-btn" data-gom-trigger="modal" data-gom-modal="fileManager" data-gom-modalid="{{'x'|random_str}}">
+                                <i class="material-icons">&#xE24D;</i>  
+                                <span>Train input</span>                            
+                        </button>
+                        <button class="icon-btn" data-gom-trigger="modal" data-gom-modal="fileManager" data-gom-modalid="{{'x'|random_str}}">
+                            <i class="material-icons">&#xE24D;</i>  
+                            <span>Test input</span>                            
+                         </button>
+
+
                         <div class="form-group">
-                            <label for="delimiter">Delimiter</label>
-                            <input id="delimiter" type="text" maxlength="1" name="delimiter" value=";">
+                            <label for="train-epochs">Epochs</label>
+                            <input id="train-epochs" type="text" name="epochs">
                         </div>
-                        <div class="form-group">
-                            <label for="float-precision">Float precision</label>
-                            <select name="float_precision" id="float-precision">
-                                <option value="None">None</option>
-                                <option value="high">High</option>
-                                <option value="round_trip">Round</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="use-cols">Use Columns</label>
-                            <input id="use-cols" type="text" name="usecols">
-                        </div>
-                        <p>
-                            <input type="submit" data-gom-form="submit" value="Upload" />
-                        </p>
+
+
+
                     </form>
-                    <div class="js-fileInspector table-inspector"></div>
 
                 </div>
 

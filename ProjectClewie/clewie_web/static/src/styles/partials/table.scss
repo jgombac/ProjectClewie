@@ -1,5 +1,6 @@
 .table-inspector {
     overflow-x: auto;
+    text-align: center;
 }
 
 table.clr,
@@ -44,13 +45,10 @@ table.clr {
         color: $dark-blue;
     }
 
-    tbody {
-
-        tr {
-            border-top: 1px solid $shadow-primary;
-            border-bottom: 1px solid $shadow-primary;
-        }
+    tr {
+        border-right: 1px solid $shadow-primary;
     }
+
 
     select {
         background: transparent;
@@ -61,9 +59,69 @@ table.clr {
         text-indent: 1px;
         text-overflow: '';
         color: inherit;
+        font-family: "Source Sans Pro", sans-serif;
+        font-size: unset;
     }
 
     select::-ms-expand {
         display: none;
     }
+}
+
+
+.rtable {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+.rtable th {
+    text-align: center;
+}
+
+
+.rtable--flip {
+    display: inline-flex;
+    overflow: hidden;
+    overflow-x: auto;
+    background: none;
+}
+
+.rtable--flip thead {
+    display: flex;
+    flex-shrink: 0;
+    min-width: min-content;
+}
+
+.rtable--flip tbody {
+    display: flex;
+    position: relative;
+}
+
+.rtable--flip tr {
+    display: flex;
+    flex-direction: column;
+    min-width: min-content;
+    flex-shrink: 0;
+}
+
+.rtable--flip td,
+.rtable--flip th {
+    display: block;
+    height: 100%;
+}
+
+.rtable--flip th {
+    text-align: right;
+}
+
+
+.rtable--flip td {
+    background-image: none !important;
+    border-left: 0;
 }

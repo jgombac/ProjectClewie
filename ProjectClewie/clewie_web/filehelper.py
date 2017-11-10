@@ -6,12 +6,9 @@ class FileHelper(object):
 
     delimiter = ','
     float_precision = None
-    nrows = 5
-    usecols = None
 
     types = []
-    features = []
-    labels = []
+    roles = []
 
     def __init__(self, f):
         self.file = f
@@ -19,75 +16,43 @@ class FileHelper(object):
 
     def updateOptions(self, options):
         self.delimiter = options["delimiter"]
-        float_precision = options["float_precision"]
+        self.float_precision = options["float_precision"]
         if (options["roles"] and options["types"]):
             self.types = options["types"]
-            self.features = []
-            self.labels = []
-            for i, v in enumerate(options["roles"]):
-                if v == "feature":
-                    self.features.append(i)
-                elif v == "label":
-                    self.labels.append(i)
-                else:
-                    pass
+            self.roles = options["roles"]
 
 
     def onUpload(self):
         return  pd.read_csv(self.file, nrows=1, sep=self.delimiter)
 
     def onProcess(self):
-        data = pd.read_csv(self.file, sep=self.delimiter)
-        for type, column in zip(self.types, data):
+        data = pd.read_csv(self.file, sep=self.delimiter, float_precision=self.float_precision)
+        for i, (type, column) in enumerate(zip(self.types, data)):
             if type == "nominal":                
                 cats = pd.get_dummies(data[column])
-                data.drop(column, axis=1, inplace=True)
-                data = pd.concat([data, cats], axis=1, join='inner')
+
+                for x in cats.columns:
+                    self.roles.insert(i, self.roles[i])
+                self.roles.pop(i)
+                #split data at the column to insert newely generated categories
+                data_left = data.loc[:, :column]
+                data_right = data.loc[:, column:]
+                data_left.drop(column, axis=1, inplace=True)
+                data_right.drop(column, axis=1, inplace=True)
+                data = pd.concat([pd.concat([data_left, cats], axis=1, join='inner'), data_right], axis=1, join='inner')
             else: 
                 data[column] = data[column].astype(np.float64)
         return data
         
 
-
-    def readPartial(self):
-        return pd.read_csv(self.file, nrows=1, sep=self.delimiter)
-
-    def typesSetup(self):
-        _types = []
-        for type in self.types:
-            if type == "numeric":
-                _types.append(np.float64)
-            elif type == "nominal":
-                _types.append("category")
-        return _types
-
-
-    
     def dataParams(self, data):
-        return [str(type).replace("object", "nominal").replace("uint8", "nominal") for type in data.dtypes]
-        # if len(self.types) == 0 or len(self.features + self.labels) == 0:
-        #     colcount = len(data.iloc[0])
-        #     return ["numeric" for i in range(colcount)], ["feature" for i in range(colcount-1)] + ["label"]
-        # roles = [i for i in self.features + self.labels]
-        # for i in self.features:
-        #     roles[i] = "feature"
-        # for i in self.labels:
-        #     roles[i] = "label"
-        # return self.types, roles
+        replacements = {
+            "float64": "numeric",
+            "object": "nominal", 
+            "uint8": "nominal"
+        }
+        _types = [replacements[str(type)] if str(type) in replacements else str(type) for type in data.dtypes]
+        _roles = self.roles
+        return _types, _roles
 
-
-    def readAll(self):
-        _types = self.typesSetup()
-        data = pd.read_csv(self.file, sep=self.delimiter)
-        for type, column in zip(_types, data):
-            if type == "category":
-                
-                cats = pd.get_dummies(data[column])
-                print(cats)
-                data.drop(column, axis=1, inplace=True)
-                data = pd.concat([data, cats], axis=1, join='inner')
-            else: 
-                data[column] = data[column].astype(type)
-        return data
-        
         

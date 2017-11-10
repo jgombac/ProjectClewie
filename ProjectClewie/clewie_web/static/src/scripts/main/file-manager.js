@@ -42,31 +42,39 @@ function FileManager(context){
     this.showTypes = function (data, container) {
         $(container + " tbody", context).append($("<tr class='types'>"));
 
-        $(container + " tbody tr").eq(-2).find("td").each(function () {
-            $(container + " .types").append("<td class='type-container'>");
+        $(container + " tbody tr", context).eq(-2).find("td").each(function () {
+            $(container + " .types", context).append("<td class='type-container'>");
         });
 
-        $(container + " .type-container").append($("<select data-gom-select='type' dir='rtl'>"));
-        _this.typeOptions.forEach(function (v) {
-            $(container + " [data-gom-select='type']").each(function (i, val) {  
-                if(data.types != undefined && data.types[i] == v.toLowerCase())           
-                    $(this).append($("<option>").text(v).attr("value", v.toLowerCase()).attr("selected", true));   
-                else
-                    $(this).append($("<option>").text(v).attr("value", v.toLowerCase()));                  
-            });            
-        });     
+        if (container == ".js-fileProcessed"){
+            $(container + " .type-container", context).each( function (i, v) {
+                $(this).append(data.types[i]);
+            });
+
+        }
+        else if (container == ".js-fileParams"){
+            $(container + " .type-container", context).append($("<select data-gom-select='type' dir='rtl'>"));
+            _this.typeOptions.forEach(function (v) {
+                $(container + " [data-gom-select='type']").each(function (i, val) {  
+                    if(data.types != undefined && data.types[i] == v.toLowerCase()) 
+                        $(this).append($("<option>").text(v).attr("value", v.toLowerCase()).attr("selected", true));   
+                    else
+                        $(this).append($("<option>").text(v).attr("value", v.toLowerCase()));                    
+                });            
+            });     
+        }
     };
 
     this.showRoles = function (data, container) {
         $(container + " tbody", context).append($("<tr class='roles'>"));
         
-        $(container + " tbody tr").eq(-3).find("td").each(function () {
-            $(container + " .roles").append("<td class='role-container'>");
+        $(container + " tbody tr", context).eq(-3).find("td").each(function () {
+            $(container + " .roles", context).append("<td class='role-container'>");
         });
 
         $(container + " .role-container").append($("<select data-gom-select='role' dir='rtl'>"));
         _this.roleOptions.forEach(function (v) {
-            $(container + " [data-gom-select='role']").each(function (i, val) {             
+            $(container + " [data-gom-select='role']", context).each(function (i, val) {             
                 if(data.roles != undefined && data.roles[i] == v.toLowerCase())           
                      $(this).append($("<option>").text(v).attr("value", v.toLowerCase()).attr("selected", true));   
                 else
@@ -77,18 +85,21 @@ function FileManager(context){
 
 
     (function () {
-        $(context).on("change", "[data-gom-select]", function () {
+        console.log(context, _this.context);
+        $(_this.context).on("change", "[data-gom-select]", function () {
             _this.collectOptions();
         });
 
-        $(context).on("click", "[data-gom-file]", function (){
+        $(_this.context).on("click", "[data-gom-file]", function (){
             $("[data-gom-file]", context).removeAttr("clicked");
             $(this).attr("clicked", "true");
 
         });
 
-        $(context).on("submit", ".file-form", function (e) {
+        $(_this.context).on("submit", ".file-form", function (e) {
             e.preventDefault();
+            console.log("submitted");
+            _this.collectOptions();
             var form = new FormData($(this)[0]);
 
             form.append("action", $("[clicked='true']", context).attr("data-gom-file"));
@@ -114,3 +125,4 @@ function FileManager(context){
         })
     })();
 }
+

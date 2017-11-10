@@ -36,6 +36,7 @@
                     path_source_scripts + "main/init.js",
                     path_source_scripts + "main/estimator-manager.js",
                     path_source_scripts + "main/file-manager.js",
+                    path_source_scripts + "main/modal-manager.js",
                     path_source_scripts + "main/tests.js",
                     path_source_scripts + "main/clew.js",
                 ]

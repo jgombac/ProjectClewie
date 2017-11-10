@@ -9,7 +9,6 @@ from .forms import FileUploadForm
 from clewie_web.filehelper import FileHelper
 from . import jstemplates
 
-
 # c = {"modals": jstemplates.get_modals}
 
 def index(request):
