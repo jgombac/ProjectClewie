@@ -1,5 +1,6 @@
 var modalManager = (function (){
 
+
     var modals = {};
 
     var init = function () {

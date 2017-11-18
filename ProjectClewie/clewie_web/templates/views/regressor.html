@@ -1,7 +1,7 @@
 {% extends "layouts/mainLayout.html" %}
 {% load filter_extras %}
 {% block content %}
-<div id="regressor-editor">
+<div id="regressor-editor" data-gom-id="{{est_id}}">
     <div class="row">
         <div class="control-container col-xs-3 col-md-3 col-sm-3 col-xs-12">
             <ul class="slider-controller">
@@ -39,7 +39,7 @@
                             <input id="label-dimension" type="text" name="label_dimension">
                         </div>
                         <p>
-                            <input type="submit" data-gom-form="submit" value="Initialize">
+                            <input type="button" data-gom-form="submit" value="Initialize">
                         </p>
                     </form>
                 </div>
@@ -85,10 +85,22 @@
         </div>
     </div>
 </div>
-{% endblock content %} {% block javascript %}
+{% endblock content %} 
+{% block javascript %}
 <script type="text/javascript">
     $(document).ready(function () {
-        estimatorManager.init($("#regressor-editor"));
+        estimatorManager.init($("#regressor-editor"), "{{est_id}}");
+
+        var data = {
+            "action": "init",
+        }
+        gom.clew.manageEstimator(data)
+        .done(function (response) {
+
+        })
+        .fail(function (error) {
+
+        });
 
     });
 </script> {% endblock javascript %}

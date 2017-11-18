@@ -9,3 +9,10 @@ class EstimatorWeb(models.Model):
 
     def __str__(self):
         return self.name
+
+class EstimatorSave(models.Model):
+    est_id = models.CharField(max_length=36)
+    serialized = models.TextField()
+
+    def __str__(self):
+        return self.est_id

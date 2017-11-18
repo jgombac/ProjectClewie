@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^create/$', views.create, name='create'),
     url(r'^create/' + estimators + '$', views.createEstimator, name="createEstimator"),
-    url(r'^manage/' + estimators + '$', views.manageEstimator, name="manageEstimator"),
+    url(r'^manage/' + estimators + '$', api.manageEstimator, name="manageEstimator"),
 
     url(r'^fileupload/$', api.fileUpload, name='fileUpload'),
 

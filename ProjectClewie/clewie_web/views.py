@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.utils.crypto import get_random_string
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseServerError
 from django.template import RequestContext
@@ -34,8 +35,8 @@ def create(request):
 def createEstimator(request):
     est = request.get_full_path().strip("/").split("/")[-1]
     if request.method == "GET":
-        form = FileUploadForm()
-        return render(request, "views/"+ est +".html", {"form": form})
+        request.session.set_test_cookie()
+        return render(request, "views/"+ est +".html", {"est_id": get_random_string()})
     elif request.method == "POST":
         return HttpResponse(request.body)
 

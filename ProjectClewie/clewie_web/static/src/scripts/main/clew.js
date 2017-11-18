@@ -27,6 +27,10 @@ gom.clew = {
         });
     },
 
+    manageEstimator: function(data) {
+        return gom.clew.call("POST", "/manage/regressor/", data);
+    },
+
     create: function (url, data) {
         return gom.clew.call("POST", url, data);
     },

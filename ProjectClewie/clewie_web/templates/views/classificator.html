@@ -1,26 +1,13 @@
 {% extends "layouts/mainLayout.html" %}
 {% block content %}
-<button class="icon-btn" onClick="openModal()">
-        <i class="material-icons">&#xE24D;</i>
-</button>
+
+<div>
+    {{est_id}}
+</div>
 
 {% endblock content %}
 {% block javascript %}
 <script>    
-    var modal = null;
-    $(document).ready(function () {
-        
-        modal = new tingle.modal({
-            closeMethods: ["overlay", "button", "escape"]
-        });
 
-        modal.setContent(window.modals.fileManager);
-            
-        var fileManager = new FileManager($(".file-mng"));
-
-    });
-    function openModal(){
-        modal.open();
-    }
 </script>
 {% endblock javascript %}

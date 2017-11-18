@@ -1,7 +1,39 @@
 from django.http import HttpResponse, JsonResponse, HttpResponseServerError
 import json
 from clewie_web.filehelper import FileHelper
+from .models import EstimatorSave
 from django.views.decorators.csrf import csrf_exempt
+from .tf_api import estimator as est
+import pickle
+
+
+@csrf_exempt
+def manageEstimator(request):
+    if request.method == "POST":
+        classificator = est.Classificator()
+        classificator.initialize()
+        classificator.train()
+        # params = json.loads(request.body)
+        # action = params["action"]
+        # est_id = params["est_id"]
+
+
+        #params validations
+
+        # if action == "init":
+        #     estimator = est.Estimator(est_id)
+        #     serialized = pickle.dumps(estimator, -1)
+        #     EstimatorSave(1, est_id, serialized).save()
+        # elif action == "train":
+        #     pass
+        # elif action == "predict":
+        #     pass
+        # elif action == "properties":
+        #     pass
+        return JsonResponse({"est_id": "success"})
+    else:
+        return HttpResponseServerError("Request requires POST parameters")
+
 
 
 @csrf_exempt
