@@ -6,6 +6,7 @@ function FileManager(context){
     this.useCols = "";
     this.typeOptions = ["Numeric", "Boolean", "Nominal"];
     this.roleOptions = ["Feature", "Label"];
+    this.id = "";
 
     this.types = [];
     this.roles = [];
@@ -14,16 +15,8 @@ function FileManager(context){
 
     var _this = this;
 
-    this.processFile = function () {
-        
-    };
 
-    this.upload = function () {
-
-    };
-
-
-    this.collectOptions = function () {
+    this.collectOptions = function () { 
         _this.types = [];
         _this.roles = [];
         $("[data-gom-select='type']", _this.context).each(function () {
@@ -85,7 +78,8 @@ function FileManager(context){
 
 
     (function () {
-        console.log(context, _this.context);
+        _this.id = $(_this.context)[0].classList[1];
+        console.log(_this.id);
         $(_this.context).on("change", "[data-gom-select]", function () {
             _this.collectOptions();
         });
@@ -105,6 +99,7 @@ function FileManager(context){
             form.append("action", $("[clicked='true']", context).attr("data-gom-file"));
             form.append("roles", _this.roles);
             form.append("types", _this.types);
+            form.append("file_id", _this.id);
             
             gom.clew.fileUpload(form)
             .done(function (response) {

@@ -43,6 +43,16 @@ class FileHelper(object):
             else: 
                 data[column] = data[column].astype(np.float64)
         return data
+
+    def roleSplit(self, data):
+        features = pd.DataFrame()
+        labels = pd.DataFrame()
+        for i, column in enumerate(data):
+            if self.roles[i] == "label":
+                labels = pd.concat([labels, data[column]], axis=1, join='outer')
+            if self.roles[i] == "feature":
+                features = pd.concat([features, data[column]], axis=1, join='outer')
+        return features, labels
         
 
     def dataParams(self, data):

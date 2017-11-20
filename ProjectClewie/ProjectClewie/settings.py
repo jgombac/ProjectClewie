@@ -72,6 +72,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ProjectClewie.wsgi.application'
 
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+SESSION_SERIALIZER = "django.contrib.sessions.serializers.PickleSerializer"
+
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases

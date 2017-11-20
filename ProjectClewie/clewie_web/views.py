@@ -35,7 +35,7 @@ def create(request):
 def createEstimator(request):
     est = request.get_full_path().strip("/").split("/")[-1]
     if request.method == "GET":
-        request.session.set_test_cookie()
+        print(request.session.session_key)
         return render(request, "views/"+ est +".html", {"est_id": get_random_string()})
     elif request.method == "POST":
         return HttpResponse(request.body)
